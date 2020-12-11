@@ -1,4 +1,4 @@
-import React, { Suspense, FunctionComponent } from "react";
+import React, { Suspense, FunctionComponent, useEffect } from "react";
 
 import {
   BrowserRouter as Router,
@@ -6,17 +6,16 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import Board from "components/Board";
-import LoginPage from "components/LoginPage";
+import Board from "containers/DashBoardContainer";
+import LoginPage from "containers/LoginContainer";
 
 export const RoutesHOC = (defaultPath: any) => {
   const Routes: FunctionComponent<any> = (props: any) => (
-    <Suspense fallback={<>Abc</>}>
+    <Suspense fallback={<></>}>
       <Router>
         <Switch>
           <Route exact path={"/"} component={LoginPage} />
           <Route exact path={"/posts"} component={Board} />
-          <Route exact path={"/login"} component={Board} />
           <Redirect to={defaultPath} />
         </Switch>
       </Router>

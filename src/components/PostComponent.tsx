@@ -65,7 +65,7 @@ const Card: FC<IPostCardInterface> = ({
           <Title>
             {item.userId.name} from {item.location}
           </Title>
-          <Title>ABC</Title>
+          <Title>{item.title}</Title>
           <FieldWrapper
           // onClick={() => {
           //   setData({ ...data, text: item.text, showForm: false });
@@ -82,7 +82,7 @@ const Card: FC<IPostCardInterface> = ({
           <StyledButton onClick={publishComment}>Send</StyledButton>
           <CommentsWrapper>
             {item.comments.map((obj) => {
-              return <CommentsDiv>{obj.text}</CommentsDiv>;
+              return <CommentsDiv key={obj.id}>{obj.text}</CommentsDiv>;
             })}
           </CommentsWrapper>
         </PostWrapper>

@@ -14,11 +14,12 @@ const reducer = (state = initialState, action: any) => {
     case LOGIN_SUCCESS:
       newState.loading = false;
       newState.success = true;
-      break;
-    case LOGIN_SUCCESS:
-      newState.loading = !state.loading;
-      newState.error = true;
       newState.user = action.payload.user;
+      localStorage.setItem("user", JSON.stringify(newState.user));
+      break;
+    case LOGIN_FAIL:
+      newState.loading = false;
+      newState.error = true;
   }
   return newState;
 };

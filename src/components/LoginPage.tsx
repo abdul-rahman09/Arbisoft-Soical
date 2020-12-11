@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { withFormik, FormikProps, FormikErrors, Form, Field } from "formik";
 import { BoardWrapper, StyledButton } from "style";
+import { IUserInterface } from "./models";
 
 // Shape of form values
 interface FormValues {
@@ -11,19 +12,35 @@ interface FormValues {
 
 interface OtherProps {
   message: string;
+  login: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+    user: IUserInterface;
+  };
+  history: any;
+  authenticate: (email: string, password: string) => void;
 }
 
 // Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
 const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const { touched, errors, isSubmitting, message } = props;
+  const { touched, errors, isSubmitting, message, authenticate } = props;
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("Handle Submit", props);
     const obj = {
       username: props.values.email,
       password: props.values.password,
     };
+    authenticate(props.values.email, props.values.password);
   };
+
+  useEffect(() => {
+    console.log("LOGIN CHANGED", props.login);
+    if (props.login.success == true) {
+      console.log("props success");
+      props.history.push("/posts");
+    }
+  }, [props.login]);
   return (
     <Form onSubmit={(e: any) => handleSubmit(e)}>
       <h1>{message}</h1>
@@ -49,6 +66,13 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 interface MyFormProps {
   initialEmail?: string;
   message: string;
+  login: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+    user: IUserInterface;
+  };
+  history: any;
   authenticate: (username: string, password: string) => void;
   // if this passed all the way through you might do this or make a union type
 }
@@ -57,7 +81,6 @@ interface MyFormProps {
 const MyForm = withFormik<MyFormProps, FormValues>({
   // Transform outer props into form values
   mapPropsToValues: (props) => {
-    console.log("props", props);
     return {
       email: props.initialEmail || "",
       password: "",
@@ -84,8 +107,7 @@ const MyForm = withFormik<MyFormProps, FormValues>({
 })(InnerForm);
 
 // Use <MyForm /> wherevs
-const Basic = (props: any) => {
-  console.log("props auth", props.authenticate);
+const LoginPage = (props: any) => {
   return (
     <BoardWrapper>
       <MyForm {...props} message="Login" />
@@ -93,4 +115,4 @@ const Basic = (props: any) => {
   );
 };
 
-export default Basic;
+export default LoginPage;

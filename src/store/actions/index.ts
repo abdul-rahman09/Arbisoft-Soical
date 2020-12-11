@@ -31,16 +31,16 @@ let comment1: ICommentInterface = {
 };
 
 let comment2: ICommentInterface = {
-  id: 1,
+  id: 2,
   text: "My Second Comment",
 };
 let comment3: ICommentInterface = {
-  id: 1,
+  id: 3,
   text: "My Third Comment",
 };
 
 let comment4: ICommentInterface = {
-  id: 1,
+  id: 4,
   text: "My Fourth Comment",
 };
 let item1: IPostInterface = {
@@ -171,16 +171,28 @@ export const AddComment = (
     dispatch(getPosts());
   };
 };
+export const UserUpdate = (
+  user
+): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    dispatch({ type: LOGIN_SUCCESS, payload: { user: user } });
+  };
+};
 export const UserAuthenticate = (
   username,
   password
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    if (username === user1.username || username === user2.username) {
-      if (password === 123) {
-        dispatch({ type: LOGIN_SUCCESS });
-      }
+    console.log("Username", username, "password", password);
+    if (password == 123 && username == user1.username) {
+      dispatch({ type: LOGIN_SUCCESS, payload: { user: user1 } });
+      return;
     }
+    if (password == 123 || username == user2.username) {
+      dispatch({ type: LOGIN_SUCCESS, payload: { user: user2 } });
+      return;
+    }
+    console.log("Fail");
     dispatch({ type: LOGIN_FAIL });
   };
 };

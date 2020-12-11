@@ -1,7 +1,7 @@
 import React from "react";
 import AddCardContainer from "containers/AllPostsCardContainer";
 import { BoardWrapper } from "style";
-function Board() {
+function Board(props: any) {
   return (
     <BoardWrapper>
       <h1>FakeBook</h1>
@@ -13,4 +13,4 @@ function Board() {
     </BoardWrapper>
   );
 }
-export default React.memo(Board);
+export default Board;
