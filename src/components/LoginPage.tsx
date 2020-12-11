@@ -35,9 +35,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
   };
 
   useEffect(() => {
-    console.log("LOGIN CHANGED", props.login);
     if (props.login.success == true) {
-      console.log("props success");
       props.history.push("/posts");
     }
   }, [props.login]);

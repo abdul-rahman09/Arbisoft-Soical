@@ -1,6 +1,4 @@
 import { LOGIN_FAIL, LOGIN_SUCCESS, GET_REQ_ERR } from "store/types";
-import { POSTS_DATA } from "store/actions/index";
-import { IUserInterface } from "components/models";
 const initialState = {
   loading: false,
   success: false,
