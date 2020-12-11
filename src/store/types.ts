@@ -5,3 +5,5 @@ export const CREATE_REQ = "CREATE_REQ";
 export const CREATE_REQ_SUCCESS = "CREATE_REQ_SUCCESS";
 export const CREATE_REQ_ERR = "CREATE_REQ_ERR";
 export const CREATE_REQ_RESET = "CREATE_REQ_RESET";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";

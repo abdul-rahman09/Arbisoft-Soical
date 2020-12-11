@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-import { Post } from "components/models";
+import { IPostInterface } from "components/models";
 import PostComponent from "containers/PostCardContainer";
 import {
   FieldWrapper,
@@ -11,7 +11,7 @@ import {
 
 interface ICardInterface {
   title: string;
-  posts: Array<Post>;
+  posts: Array<IPostInterface>;
   getData: () => void;
   postData: (obj: string) => void;
   closePressed: () => void;
@@ -88,7 +88,7 @@ const Card: FC<ICardInterface> = ({
               </>
             )}
         </div>
-        {posts.map((item: Post) => (
+        {posts.map((item: IPostInterface) => (
           <PostComponent
             setData={setData}
             data={data}

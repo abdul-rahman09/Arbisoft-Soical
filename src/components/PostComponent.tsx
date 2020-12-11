@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-import { Post } from "components/models";
+import { IPostInterface } from "components/models";
 import {
   FieldWrapper,
   Title,
@@ -14,17 +14,17 @@ import {
 import { AddComment } from "store/actions";
 type TdataType = { showForm: boolean; text: string; isEdit: boolean };
 
-interface IPostInterface {
-  item: Post;
+interface IPostCardInterface {
+  item: IPostInterface;
   closePressed: (evt: React.MouseEvent) => void;
-  editItem: (obj: Post) => void;
+  editItem: (obj: IPostInterface) => void;
   saveEditItem: (obj: string) => void;
   setData: (obj: TdataType) => void;
   addComment: (obj: Number, text: string) => void;
   data: TdataType;
 }
 
-const Card: FC<IPostInterface> = ({
+const Card: FC<IPostCardInterface> = ({
   item,
   saveEditItem,
   editItem,

@@ -6,37 +6,44 @@ import {
   CREATE_REQ_RESET,
   CREATE_REQ,
   CREATE_REQ_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from "store/types";
-import { Post, EDIT_STATUS, User, Comment } from "components/models";
-let user1: User = {
+import {
+  IPostInterface,
+  EDIT_STATUS,
+  IUserInterface,
+  ICommentInterface,
+} from "components/models";
+let user1: IUserInterface = {
   id: 1,
   name: "Abdul Rahman",
   username: "abdul",
 };
-let user2: User = {
+let user2: IUserInterface = {
   id: 2,
   name: "Huzaifah",
   username: "huz",
 };
-let comment1: Comment = {
+let comment1: ICommentInterface = {
   id: 1,
   text: "My First Comment",
 };
 
-let comment2: Comment = {
+let comment2: ICommentInterface = {
   id: 1,
   text: "My Second Comment",
 };
-let comment3: Comment = {
+let comment3: ICommentInterface = {
   id: 1,
   text: "My Third Comment",
 };
 
-let comment4: Comment = {
+let comment4: ICommentInterface = {
   id: 1,
   text: "My Fourth Comment",
 };
-let item1: Post = {
+let item1: IPostInterface = {
   id: 1,
   title: "My Title",
   userId: user1,
@@ -52,7 +59,7 @@ let item1: Post = {
   showEdit: EDIT_STATUS.No,
   location: "Lahore",
 };
-let item3: Post = {
+let item3: IPostInterface = {
   id: 2,
   text: `By 2020, digital videos will drive 82% of web traffic. That means you’re leaving reach and engagement on the table if you aren’t sharing video content on your channels. And there’s so many options to choose from:
   Stories (Facebook and Instagram)
@@ -68,7 +75,7 @@ let item3: Post = {
   comments: [],
   showEdit: EDIT_STATUS.No,
 };
-export const POSTS_DATA: Array<Post> = [item1, item3];
+export const POSTS_DATA: Array<IPostInterface> = [item1, item3];
 export const getPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     dispatch({ type: GET_REQ });
@@ -100,7 +107,7 @@ export const CreatePost = (
   };
 };
 export const showEditItem = (
-  data: Post
+  data: IPostInterface
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     for (let i = 0; i < POSTS_DATA.length; i++) {
@@ -152,7 +159,7 @@ export const AddComment = (
         max = Math.max(max, POSTS_DATA[i].comments[j].id);
       }
     }
-    let comment: Comment = {
+    let comment: ICommentInterface = {
       id: max,
       text: text,
     };
@@ -162,5 +169,18 @@ export const AddComment = (
       }
     }
     dispatch(getPosts());
+  };
+};
+export const UserAuthenticate = (
+  username,
+  password
+): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    if (username === user1.username || username === user2.username) {
+      if (password === 123) {
+        dispatch({ type: LOGIN_SUCCESS });
+      }
+    }
+    dispatch({ type: LOGIN_FAIL });
   };
 };

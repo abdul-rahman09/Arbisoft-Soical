@@ -87,3 +87,6 @@ export const InputComment = styled(InputWrapper)`
 export const CrossButtonWrapper = styled.span`
   cursor: pointer;
 `;
+export const BoardWrapper = styled.div`
+  text-align: center;
+`;

@@ -2,21 +2,21 @@ export enum EDIT_STATUS {
   No = 0,
   Yes = 1,
 }
-export interface User {
+export interface IUserInterface {
   id: number;
   username: string;
   name: string;
 }
-export interface Comment {
+export interface ICommentInterface {
   id: number;
   text: string;
 }
-export interface Post {
+export interface IPostInterface {
   id: number;
   text: string;
   location: string;
-  userId: User;
+  userId: IUserInterface;
   title: string;
-  comments: Comment[];
+  comments: ICommentInterface[];
   showEdit: EDIT_STATUS;
 }

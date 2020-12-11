@@ -1,12 +1,19 @@
-import React, { FC } from "react";
-import "./App.css";
+import React from "react";
 import Board from "components/Board";
+import { Provider } from "react-redux";
+import { createBrowserHistory } from "history";
+import { Router } from "react-router-dom";
+import { AppRouter } from "routes";
+import "./App.css";
 
-const App: FC = () => {
+const history = createBrowserHistory();
+
+const App = () => {
   return (
-    <div className="App">
-      <Board />
-    </div>
+    <Router history={history}>
+      <AppRouter />
+    </Router>
   );
 };
+
 export default App;
