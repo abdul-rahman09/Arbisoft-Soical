@@ -12,6 +12,7 @@ const stateToProps = (state: RootState, props: any) => {
   return {
     item: { ...props.item },
     setData: props.setData,
+    login: state.login,
   };
 };
 const mapDispatchToProps = {

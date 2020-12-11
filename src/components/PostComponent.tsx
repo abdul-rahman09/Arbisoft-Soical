@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-import { IPostInterface } from "components/models";
+import { EDIT_STATUS, IPostInterface } from "components/models";
 import {
   FieldWrapper,
   Title,
@@ -18,10 +18,10 @@ interface IPostCardInterface {
   item: IPostInterface;
   closePressed: (evt: React.MouseEvent) => void;
   editItem: (obj: IPostInterface) => void;
-  saveEditItem: (obj: string) => void;
-  setData: (obj: TdataType) => void;
+  saveEditItem: (obj: IPostInterface) => void;
   addComment: (obj: Number, text: string) => void;
   data: TdataType;
+  login: any;
 }
 
 const Card: FC<IPostCardInterface> = ({
@@ -29,10 +29,10 @@ const Card: FC<IPostCardInterface> = ({
   saveEditItem,
   editItem,
   closePressed,
-  setData,
   addComment,
-  data,
+  login,
 }) => {
+  const [data, setData] = useState<any>({});
   const [comment, setComment] = useState("");
 
   const publishComment = () => {
@@ -41,24 +41,52 @@ const Card: FC<IPostCardInterface> = ({
       setComment("");
     }
   };
+  useEffect(() => {
+    if (item.showEdit == EDIT_STATUS.Yes) {
+      setData(item);
+    }
+  }, [item]);
   return (
     <div key={item.id}>
       {item.showEdit ? (
         <>
+          Edit Item
+          <InputWrapper
+            onChange={(evt: any) =>
+              setData({ ...data, title: evt.target.value })
+            }
+            value={data.title}
+            placeholder="Title"
+          />
+          <InputWrapper
+            onChange={(evt: any) =>
+              setData({ ...data, location: evt.target.value })
+            }
+            value={data.location}
+            placeholder="Location"
+          />
           <InputWrapper
             onChange={(evt: any) =>
               setData({ ...data, text: evt.target.value })
             }
             value={data.text}
+            placeholder="Write Post"
           />
-          <StyledButton onClick={(evt: any) => saveEditItem(data.text)}>
-            Save
-          </StyledButton>
-          <CrossButtonWrapper
-            onClick={(evt: React.MouseEvent) => closePressed(evt)}
-          >
-            X
-          </CrossButtonWrapper>
+          {data.text &&
+            data.text.length > 0 &&
+            data.title.length > 0 &&
+            data.location.length > 0 && (
+              <>
+                <StyledButton onClick={() => saveEditItem(data)}>
+                  Update
+                </StyledButton>
+                <CrossButtonWrapper
+                  onClick={(evt: React.MouseEvent) => closePressed(evt)}
+                >
+                  X
+                </CrossButtonWrapper>
+              </>
+            )}
         </>
       ) : (
         <PostWrapper>
@@ -66,14 +94,16 @@ const Card: FC<IPostCardInterface> = ({
             {item.userId.name} from {item.location}
           </Title>
           <Title>{item.title}</Title>
-          <FieldWrapper
-          // onClick={() => {
-          //   setData({ ...data, text: item.text, showForm: false });
-          //   editItem(item);
-          // }}
-          >
-            {item.text}
-          </FieldWrapper>
+          {item.userId.id == login.user.id && (
+            <StyledButton
+              onClick={() => {
+                editItem(item);
+              }}
+            >
+              Edit
+            </StyledButton>
+          )}
+          <FieldWrapper>{item.text}</FieldWrapper>
           <InputComment
             onChange={(evt: any) => setComment(evt.target.value)}
             value={comment}

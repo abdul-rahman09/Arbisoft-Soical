@@ -121,12 +121,14 @@ export const showEditItem = (
   };
 };
 export const saveEditItem = (
-  data: string
+  data: IPostInterface
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     for (let i = 0; i < POSTS_DATA.length; i++) {
       if (POSTS_DATA[i].showEdit == EDIT_STATUS.Yes) {
-        POSTS_DATA[i]["text"] = data;
+        POSTS_DATA[i]["text"] = data.text;
+        POSTS_DATA[i]["location"] = data.location;
+        POSTS_DATA[i]["title"] = data.title;
         POSTS_DATA[i].showEdit = EDIT_STATUS.No;
       }
     }
@@ -141,9 +143,7 @@ export const closePressed = (): ThunkAction<
 > => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     for (let i = 0; i < POSTS_DATA.length; i++) {
-      if (POSTS_DATA[i].showEdit == EDIT_STATUS.Yes) {
-        POSTS_DATA[i].showEdit = EDIT_STATUS.No;
-      }
+      POSTS_DATA[i].showEdit = EDIT_STATUS.No;
     }
     dispatch(getPosts());
   };
@@ -160,7 +160,7 @@ export const AddComment = (
       }
     }
     let comment: ICommentInterface = {
-      id: max,
+      id: max + 1,
       text: text,
     };
     for (let i = 0; i < POSTS_DATA.length; i++) {
