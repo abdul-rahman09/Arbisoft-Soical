@@ -49,7 +49,6 @@ const Card: FC<IPostCardInterface> = ({
     <div key={item.id}>
       {item.showEdit ? (
         <>
-          Edit Item
           <InputWrapper
             onChange={(evt: any) =>
               setData({ ...data, title: evt.target.value })
