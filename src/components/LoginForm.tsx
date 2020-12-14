@@ -27,14 +27,14 @@ const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
   }, []);
 
   useEffect(() => {
-    if (props.login.success == true) {
+    if (props.app.success == true) {
       props.history.push("/posts");
     }
-  }, [props.login]);
+  }, [props.app]);
   return (
     <CustomForm onSubmit={(e: any) => handleSubmit(e)}>
       <CustomTitle>Login</CustomTitle>
-      {props.login.error && <Error>Invalid Username or Password</Error>}
+      {props.app.error && <Error>Invalid Username or Password</Error>}
 
       <div>
         <CustomField name="email" />
@@ -47,7 +47,7 @@ const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
         )}
       </div>
       <div>
-        {!props.login.loading ? (
+        {!props.app.loading ? (
           props.values.email && props.values.password ? (
             <StyledButton type="submit">Login</StyledButton>
           ) : (

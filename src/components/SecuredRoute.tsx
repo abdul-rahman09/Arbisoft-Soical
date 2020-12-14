@@ -1,7 +1,7 @@
 import React from "react";
 export default function withSubscription(WrappedComponent) {
   return (props: any) => {
-    if (!props.login.success) {
+    if (!props.app.success) {
       try {
         const obj: string = localStorage.getItem("user") || "";
         const user = JSON.parse(obj);
@@ -12,7 +12,7 @@ export default function withSubscription(WrappedComponent) {
         props.history.push("/");
       }
     }
-    if (props.login.success) {
+    if (props.app.success) {
       return <WrappedComponent {...props} />;
     }
     return <>Loading</>;

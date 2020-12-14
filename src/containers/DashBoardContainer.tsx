@@ -6,6 +6,7 @@ import Board from "components/Board";
 const stateToProps = (state: RootState) => {
   return {
     login: state.login,
+    app: state.app,
   };
 };
 const mapDispatchToProps = {

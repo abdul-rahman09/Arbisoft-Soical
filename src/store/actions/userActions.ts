@@ -1,10 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
+  APP_SUCCESS,
+  APP_FAIL,
+  APP_LOADING,
+  APP_RESET,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGIN_LOADING,
-  LOGIN_RESET,
 } from "store/types";
 import { IUserInterface } from "components/models";
 export const user1: IUserInterface = {
@@ -23,9 +24,10 @@ export const UserUpdate = (
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     if (user) {
+      dispatch({ type: APP_SUCCESS, payload: { user: user } });
       dispatch({ type: LOGIN_SUCCESS, payload: { user: user } });
     } else {
-      dispatch({ type: LOGIN_FAIL });
+      dispatch({ type: APP_FAIL });
     }
   };
 };
@@ -34,20 +36,20 @@ export const UserAuthenticate = (
   password
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    dispatch({ type: LOGIN_LOADING });
+    dispatch({ type: APP_LOADING });
 
     setTimeout(() => {
       if (password == 123 && username == user1.username) {
-        dispatch({ type: LOGIN_SUCCESS, payload: { user: user1 } });
+        dispatch({ type: APP_SUCCESS, payload: { user: user1 } });
         return;
       }
       if (password == 123 || username == user2.username) {
-        dispatch({ type: LOGIN_SUCCESS, payload: { user: user2 } });
+        dispatch({ type: APP_SUCCESS, payload: { user: user2 } });
         return;
       }
-      dispatch({ type: LOGIN_FAIL });
+      dispatch({ type: APP_FAIL });
       setTimeout(() => {
-        dispatch({ type: LOGIN_RESET });
+        dispatch({ type: APP_RESET });
       }, 2000);
     }, 2000);
   };

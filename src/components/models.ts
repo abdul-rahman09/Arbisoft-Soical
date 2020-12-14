@@ -28,10 +28,12 @@ export interface FormValues {
 
 // The type of props MyForm receives
 export interface MyFormProps {
-  login: {
+  app: {
     loading: boolean;
     success: boolean;
     error: boolean;
+  };
+  login: {
     user: IUserInterface;
   };
   history: any;
