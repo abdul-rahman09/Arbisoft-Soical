@@ -11,7 +11,6 @@ import {
   PostWrapper,
   StyledButton,
 } from "style";
-import { AddComment } from "store/actions";
 type TdataType = { showForm: boolean; text: string; isEdit: boolean };
 
 interface IPostCardInterface {

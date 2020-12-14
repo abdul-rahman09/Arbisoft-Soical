@@ -1,4 +1,9 @@
-import { LOGIN_FAIL, LOGIN_SUCCESS, GET_REQ_ERR } from "store/types";
+import {
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_LOADING,
+  LOGIN_RESET,
+} from "store/types";
 const initialState = {
   loading: false,
   success: false,
@@ -9,6 +14,9 @@ const initialState = {
 const reducer = (state = initialState, action: any) => {
   const newState = { ...state };
   switch (action.type) {
+    case LOGIN_LOADING:
+      newState.loading = true;
+      break;
     case LOGIN_SUCCESS:
       newState.loading = false;
       newState.success = true;
@@ -18,6 +26,9 @@ const reducer = (state = initialState, action: any) => {
     case LOGIN_FAIL:
       newState.loading = false;
       newState.error = true;
+      break;
+    case LOGIN_RESET:
+      return initialState;
   }
   return newState;
 };

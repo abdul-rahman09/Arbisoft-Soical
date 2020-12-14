@@ -7,3 +7,5 @@ export const CREATE_REQ_ERR = "CREATE_REQ_ERR";
 export const CREATE_REQ_RESET = "CREATE_REQ_RESET";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGIN_LOADING = "LOGIN_LOADING";
+export const LOGIN_RESET = "LOGIN_RESET";

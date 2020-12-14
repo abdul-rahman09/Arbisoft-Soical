@@ -8,6 +8,8 @@ import {
   CREATE_REQ_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGIN_LOADING,
+  LOGIN_RESET,
 } from "store/types";
 import {
   IPostInterface,
@@ -183,16 +185,21 @@ export const UserAuthenticate = (
   password
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    console.log("Username", username, "password", password);
-    if (password == 123 && username == user1.username) {
-      dispatch({ type: LOGIN_SUCCESS, payload: { user: user1 } });
-      return;
-    }
-    if (password == 123 || username == user2.username) {
-      dispatch({ type: LOGIN_SUCCESS, payload: { user: user2 } });
-      return;
-    }
-    console.log("Fail");
-    dispatch({ type: LOGIN_FAIL });
+    dispatch({ type: LOGIN_LOADING });
+
+    setTimeout(() => {
+      if (password == 123 && username == user1.username) {
+        dispatch({ type: LOGIN_SUCCESS, payload: { user: user1 } });
+        return;
+      }
+      if (password == 123 || username == user2.username) {
+        dispatch({ type: LOGIN_SUCCESS, payload: { user: user2 } });
+        return;
+      }
+      dispatch({ type: LOGIN_FAIL });
+      setTimeout(() => {
+        dispatch({ type: LOGIN_RESET });
+      }, 2000);
+    }, 2000);
   };
 };

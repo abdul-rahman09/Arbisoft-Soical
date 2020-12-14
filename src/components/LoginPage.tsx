@@ -1,7 +1,17 @@
 import React, { useEffect } from "react";
 import * as Yup from "yup";
-import { withFormik, FormikProps, FormikErrors, Form, Field } from "formik";
-import { BoardWrapper, StyledButton } from "style";
+import { withFormik, FormikProps, FormikErrors } from "formik";
+import styled from "styled-components";
+import { Formik } from "formik";
+import {
+  CustomForm,
+  CustomField,
+  Error,
+  CustomTitle,
+  DisabledButton,
+} from "style";
+
+import { LoginWrapper, StyledButton } from "style";
 import { IUserInterface } from "./models";
 
 // Shape of form values
@@ -35,28 +45,42 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
   };
 
   useEffect(() => {
+    return () => {};
+  }, []);
+
+  useEffect(() => {
     if (props.login.success == true) {
       props.history.push("/posts");
     }
   }, [props.login]);
+  console.log("props", props);
   return (
-    <Form onSubmit={(e: any) => handleSubmit(e)}>
-      <h1>{message}</h1>
+    <CustomForm onSubmit={(e: any) => handleSubmit(e)}>
+      <CustomTitle>{message}</CustomTitle>
+      {props.login.error && <Error>Invalid Username or Password</Error>}
 
       <div>
-        <Field name="email" />
-        {touched.email && errors.email && <div>{errors.email}</div>}
+        <CustomField name="email" />
+        {touched.email && errors.email && <Error>{errors.email}</Error>}
       </div>
       <div>
-        <Field type="password" name="password" />
-        {touched.password && errors.password && <div>{errors.password}</div>}
+        <CustomField type="password" name="password" />
+        {touched.password && errors.password && (
+          <Error>{errors.password}</Error>
+        )}
       </div>
       <div>
-        <StyledButton type="submit" disabled={isSubmitting}>
-          Login
-        </StyledButton>
+        {!props.login.loading ? (
+          props.values.email && props.values.password ? (
+            <StyledButton type="submit">Login</StyledButton>
+          ) : (
+            <DisabledButton disabled={true}>Login</DisabledButton>
+          )
+        ) : (
+          <DisabledButton disabled={true}>Submitting</DisabledButton>
+        )}
       </div>
-    </Form>
+    </CustomForm>
   );
 };
 
@@ -89,12 +113,10 @@ const MyForm = withFormik<MyFormProps, FormValues>({
   validate: (values: FormValues) => {
     let errors: FormikErrors<FormValues> = {};
     if (!values.email) {
-      errors.email = "Username Required";
-    } else if (!values.email) {
-      errors.email = "Invalid email address";
+      errors.email = "Please Enter Username";
     }
     if (!values.password) {
-      errors.password = "Required";
+      errors.password = "Please Enter Password";
     }
     return errors;
   },
@@ -107,9 +129,9 @@ const MyForm = withFormik<MyFormProps, FormValues>({
 // Use <MyForm /> wherevs
 const LoginPage = (props: any) => {
   return (
-    <BoardWrapper>
+    <LoginWrapper>
       <MyForm {...props} message="Login" />
-    </BoardWrapper>
+    </LoginWrapper>
   );
 };
 

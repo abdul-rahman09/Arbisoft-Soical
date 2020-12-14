@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
+import { withFormik, FormikProps, FormikErrors, Field } from "formik";
 
 export const MyH1 = styled.h1`
   color: red;
@@ -52,6 +53,7 @@ export const StyledButton = styled.button`
   border-radius: 8px;
   outline: none;
   box-shadow: none;
+  cursor: pointer;
 
   &:hover {
     background-color: blue;
@@ -66,7 +68,19 @@ export const StyledButton = styled.button`
     box-shadow: none;
   }
 `;
-
+export const DisabledButton = styled(StyledButton)`
+  background-color: lightblue;
+  cursor: not-allowed;
+  &:hover {
+    background-color: lightblue;
+  }
+  &:active {
+    background-color: lightblue;
+  }
+  &:focus {
+    background-color: lightblue;
+  }
+`;
 export const InputWrapper = styled.textarea`
   width: 100%;
   height: 60px;
@@ -89,4 +103,37 @@ export const CrossButtonWrapper = styled.span`
 `;
 export const BoardWrapper = styled.div`
   text-align: center;
+`;
+export const LoginWrapper = styled(BoardWrapper)`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("login.jpg");
+`;
+export const CustomTitle = styled.h2`
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  color: white;
+  font-size: 1.8em;
+`;
+export const Error = styled.p`
+  color: black;
+  margin-top: 5px;
+  font-size: 12px;
+`;
+export const CustomField = styled(Field)`
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  background-color: #fff;
+`;
+export const CustomForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 250px;
+  justify-content: space-evenly;
 `;
