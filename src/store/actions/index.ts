@@ -87,15 +87,17 @@ export const getPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   };
 };
 export const CreatePost = (
-  data: string
+  data: string,
+  location: string,
+  title: string
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     const item = {
       id: POSTS_DATA.length + 1,
       text: data,
       showEdit: EDIT_STATUS.No,
-      location: "Lahore",
-      title: "My Title",
+      location: location,
+      title: title,
       userId: user2,
       comments: [],
     };

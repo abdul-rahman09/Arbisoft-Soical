@@ -13,17 +13,11 @@ interface ICardInterface {
   title: string;
   posts: Array<IPostInterface>;
   getData: () => void;
-  postData: (obj: string) => void;
+  postData: (text: string, loc: string, title: string) => void;
   closePressed: () => void;
 }
 
-const Card: FC<ICardInterface> = ({
-  title,
-  posts,
-  getData,
-  postData,
-  closePressed,
-}) => {
+const Card: FC<ICardInterface> = ({ title, posts, getData, postData }) => {
   const [data, setData] = useState({
     showForm: false,
     text: "",
@@ -37,13 +31,8 @@ const Card: FC<ICardInterface> = ({
   }, [getData]);
 
   function addItem() {
-    postData(data.text);
+    postData(data.text, data.location, data.title);
     setData({ ...data, showForm: false, text: "" });
-  }
-
-  function showForm() {
-    setData({ ...data, showForm: true, text: "" });
-    closePressed();
   }
 
   return (

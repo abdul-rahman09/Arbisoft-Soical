@@ -53,7 +53,6 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
       props.history.push("/posts");
     }
   }, [props.login]);
-  console.log("props", props);
   return (
     <CustomForm onSubmit={(e: any) => handleSubmit(e)}>
       <CustomTitle>{message}</CustomTitle>
