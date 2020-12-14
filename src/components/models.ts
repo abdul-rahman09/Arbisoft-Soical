@@ -20,3 +20,20 @@ export interface IPostInterface {
   comments: ICommentInterface[];
   showEdit: EDIT_STATUS;
 }
+// Shape of form values
+export interface FormValues {
+  email: string;
+  password: string;
+}
+
+// The type of props MyForm receives
+export interface MyFormProps {
+  login: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+    user: IUserInterface;
+  };
+  history: any;
+  authenticate: (username: string, password: string) => void;
+}
