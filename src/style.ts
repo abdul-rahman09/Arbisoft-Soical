@@ -68,6 +68,9 @@ export const StyledButton = styled.button`
     box-shadow: none;
   }
 `;
+export const StyledButtonRight = styled(StyledButton)`
+  float: right;
+`;
 export const DisabledButton = styled(StyledButton)`
   background-color: lightblue;
   cursor: not-allowed;

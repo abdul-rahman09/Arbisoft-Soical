@@ -177,7 +177,11 @@ export const UserUpdate = (
   user
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    dispatch({ type: LOGIN_SUCCESS, payload: { user: user } });
+    if (user) {
+      dispatch({ type: LOGIN_SUCCESS, payload: { user: user } });
+    } else {
+      dispatch({ type: LOGIN_FAIL });
+    }
   };
 };
 export const UserAuthenticate = (
