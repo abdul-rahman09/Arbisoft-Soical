@@ -96,27 +96,6 @@ const Card: FC<ICardInterface> = ({
             item={item}
           />
         ))}
-        {/* {data.showForm ? (
-          <div>
-            <InputWrapper
-              onChange={(evt: any) =>
-                setData({ ...data, text: evt.target.value })
-              }
-              value={data.text}
-            />
-
-            <StyledButton className="btn btn-success" onClick={addItem}>
-              Add Card
-            </StyledButton>
-            <CrossButtonWrapper
-              onClick={() => setData({ ...data, showForm: false, text: "" })}
-            >
-              X
-            </CrossButtonWrapper>
-          </div>
-        ) : (
-          <FieldWrapper onClick={showForm}>+ Add a card</FieldWrapper>
-        )} */}
       </div>
     </CardWrapper>
   );
