@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import {
-  AddComment,
   closePressed,
   showEditItem,
   saveEditItem,
-} from "store/actions/index";
+} from "store/actions/postActions";
+import { AddComment } from "store/actions/commentActions";
 import { RootState } from "store/reducer/index";
 import PostComponent from "components/PostComponent";
 

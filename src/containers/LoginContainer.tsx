@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { UserAuthenticate, UserUpdate } from "store/actions/index";
+import { UserAuthenticate, UserUpdate } from "store/actions/userActions";
 import { RootState } from "store/reducer/index";
 import HOC from "components/SecuredRoute";
 import LoginPage from "components/LoginPage";

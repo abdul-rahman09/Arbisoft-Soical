@@ -1,5 +1,5 @@
 import { GET_REQ, GET_REQ_SUCCESS, GET_REQ_ERR } from "store/types";
-import { POSTS_DATA } from "store/actions/index";
+import { POSTS_DATA } from "store/actions/postActions";
 import { IPostInterface } from "components/models";
 const initialState = {
   loading: false,

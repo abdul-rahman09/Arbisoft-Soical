@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { UserUpdate } from "store/actions/index";
+import { UserUpdate } from "store/actions/userActions";
 import { RootState } from "store/reducer/index";
 import HOC from "components/SecuredRoute";
 import Board from "components/Board";

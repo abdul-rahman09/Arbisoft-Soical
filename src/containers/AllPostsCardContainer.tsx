@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getPosts, CreatePost, closePressed } from "store/actions/index";
+import { getPosts, CreatePost, closePressed } from "store/actions/postActions";
 import { RootState } from "store/reducer/index";
 import Card from "components/Card";
 const stateToProps = (state: RootState) => {
