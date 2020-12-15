@@ -2,6 +2,13 @@ export enum EDIT_STATUS {
   No = 0,
   Yes = 1,
 }
+export interface IAppInterface {
+  app: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
+}
 export interface IUserInterface {
   id: number;
   username: string;
@@ -11,31 +18,35 @@ export interface ICommentInterface {
   id: number;
   text: string;
 }
-export interface IPostInterface {
-  id: number;
-  text: string;
-  location: string;
-  userId: IUserInterface;
-  title: string;
-  comments: ICommentInterface[];
-  showEdit: EDIT_STATUS;
-}
 // Shape of form values
 export interface FormValues {
   email: string;
   password: string;
 }
+export interface PostFormValues {
+  title: string;
+  location: string;
+  text: string;
+}
+export interface IPostInterface extends PostFormValues {
+  id: number;
+  userId: IUserInterface;
+  comments: ICommentInterface[];
+  showEdit: EDIT_STATUS;
+}
 
-// The type of props MyForm receives
-export interface MyFormProps {
-  app: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
+export interface MyFormProps extends IAppInterface {
   login: {
     user: IUserInterface;
   };
   history: any;
   authenticate: (username: string, password: string) => void;
+}
+export interface PostXT extends PostFormValues {
+  app: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
+  postData: (text: string, loc: string, title: string) => void;
 }

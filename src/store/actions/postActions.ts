@@ -6,6 +6,8 @@ import {
   CREATE_REQ_RESET,
   CREATE_REQ,
   CREATE_REQ_SUCCESS,
+  APP_LOADING,
+  APP_SUCCESS,
 } from "store/types";
 import { IPostInterface, EDIT_STATUS } from "components/models";
 import { user1, user2 } from "store/actions/userActions";
@@ -64,6 +66,8 @@ export const CreatePost = (
   title: string
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    dispatch({ type: APP_LOADING });
+
     const item = {
       id: POSTS_DATA.length + 1,
       text: data,
@@ -79,7 +83,8 @@ export const CreatePost = (
       dispatch({ type: CREATE_REQ_SUCCESS, payload: data });
       dispatch(getPosts());
       dispatch({ type: CREATE_REQ_RESET });
-    }, 100);
+      dispatch({ type: APP_SUCCESS });
+    }, 1000);
   };
 };
 export const showEditItem = (

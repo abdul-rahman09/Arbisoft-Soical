@@ -13,6 +13,8 @@ const stateToProps = (state: RootState, props: any) => {
     item: { ...props.item },
     setData: props.setData,
     login: state.login,
+    app: state.app,
+    history: {},
   };
 };
 const mapDispatchToProps = {

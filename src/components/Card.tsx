@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FC } from "react";
-import { IPostInterface } from "components/models";
+import { IPostInterface, IUserInterface } from "components/models";
 import PostComponent from "containers/PostCardContainer";
+import PostFormFormik from "components/PostFormFormik";
 import {
   FieldWrapper,
   CardWrapper,
@@ -12,14 +13,14 @@ import {
 interface ICardInterface {
   title: string;
   posts: Array<IPostInterface>;
+  app: any;
   getData: () => void;
   postData: (text: string, loc: string, title: string) => void;
   closePressed: () => void;
 }
 
-const Card: FC<ICardInterface> = ({ title, posts, getData, postData }) => {
+const Card: FC<ICardInterface> = ({ title, posts, getData, postData, app }) => {
   const [data, setData] = useState({
-    showForm: false,
     text: "",
     title: "",
     location: "",
@@ -32,51 +33,20 @@ const Card: FC<ICardInterface> = ({ title, posts, getData, postData }) => {
 
   function addItem() {
     postData(data.text, data.location, data.title);
-    setData({ ...data, showForm: false, text: "" });
+    setData({ ...data });
   }
 
   return (
     <CardWrapper>
       <h6>{title}</h6>
       <div>
-        <div>
-          <InputWrapper
-            onChange={(evt: any) =>
-              setData({ ...data, title: evt.target.value })
-            }
-            value={data.title}
-            placeholder="Title"
-          />
-
-          <InputWrapper
-            onChange={(evt: any) =>
-              setData({ ...data, location: evt.target.value })
-            }
-            value={data.location}
-            placeholder="Location"
-          />
-          <InputWrapper
-            onChange={(evt: any) =>
-              setData({ ...data, text: evt.target.value })
-            }
-            value={data.text}
-            placeholder="Write Post"
-          />
-          {data.text.length > 0 &&
-            data.title.length > 0 &&
-            data.location.length > 0 && (
-              <>
-                <StyledButton onClick={addItem}>Share</StyledButton>
-                <CrossButtonWrapper
-                  onClick={() =>
-                    setData({ ...data, showForm: false, text: "" })
-                  }
-                >
-                  X
-                </CrossButtonWrapper>
-              </>
-            )}
-        </div>
+        <PostFormFormik
+          text={data.text}
+          title={data.title}
+          location={data.location}
+          postData={postData}
+          app={app}
+        />
         {posts.map((item: IPostInterface) => (
           <PostComponent
             setData={setData}
