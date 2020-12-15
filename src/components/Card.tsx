@@ -14,12 +14,25 @@ interface ICardInterface {
   title: string;
   posts: Array<IPostInterface>;
   app: any;
+  login: any;
   getData: () => void;
-  postData: (text: string, loc: string, title: string) => void;
+  postData: (
+    text: string,
+    loc: string,
+    title: string,
+    user: IUserInterface
+  ) => void;
   closePressed: () => void;
 }
 
-const Card: FC<ICardInterface> = ({ title, posts, getData, postData, app }) => {
+const Card: FC<ICardInterface> = ({
+  title,
+  posts,
+  getData,
+  postData,
+  app,
+  login,
+}) => {
   const [data, setData] = useState({
     text: "",
     title: "",
@@ -32,7 +45,7 @@ const Card: FC<ICardInterface> = ({ title, posts, getData, postData, app }) => {
   }, [getData]);
 
   function addItem() {
-    postData(data.text, data.location, data.title);
+    postData(data.text, data.location, data.title, login.user);
     setData({ ...data });
   }
 
@@ -46,6 +59,7 @@ const Card: FC<ICardInterface> = ({ title, posts, getData, postData, app }) => {
           location={data.location}
           postData={postData}
           app={app}
+          login={login}
         />
         {posts.map((item: IPostInterface) => (
           <PostComponent

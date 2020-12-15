@@ -1,14 +1,15 @@
 import React from "react";
 import { withFormik, FormikErrors } from "formik";
-import { PostXT, PostFormValues, FormValues } from "./models";
+import { ICreatePostInterface, PostFormValues, FormValues } from "./models";
 import InnerForm from "components/PostForm";
 
-const MyForm = withFormik<PostXT, PostFormValues>({
+const MyForm = withFormik<ICreatePostInterface, PostFormValues>({
   mapPropsToValues: (props) => {
     return {
       location: props.location,
       title: props.title,
       text: props.text,
+      login: props.login,
     };
   },
 
@@ -26,6 +27,10 @@ const MyForm = withFormik<PostXT, PostFormValues>({
     return errors;
   },
 
-  handleSubmit: (values) => {},
+  handleSubmit: (values) => {
+    values.title = "";
+    values.location = "";
+    values.text = "";
+  },
 })(InnerForm);
 export default MyForm;

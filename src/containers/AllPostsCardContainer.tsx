@@ -7,6 +7,7 @@ const stateToProps = (state: RootState) => {
     title: "Posts",
     posts: state.posts.data,
     app: state.app,
+    login: state.login,
   };
 };
 const mapDispatchToProps = {

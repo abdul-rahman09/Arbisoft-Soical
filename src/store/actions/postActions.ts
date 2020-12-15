@@ -9,7 +9,7 @@ import {
   APP_LOADING,
   APP_SUCCESS,
 } from "store/types";
-import { IPostInterface, EDIT_STATUS } from "components/models";
+import { IPostInterface, EDIT_STATUS, IUserInterface } from "components/models";
 import { user1, user2 } from "store/actions/userActions";
 
 import {
@@ -63,7 +63,8 @@ export const getPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
 export const CreatePost = (
   data: string,
   location: string,
-  title: string
+  title: string,
+  user: IUserInterface
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     dispatch({ type: APP_LOADING });
@@ -74,16 +75,17 @@ export const CreatePost = (
       showEdit: EDIT_STATUS.No,
       location: location,
       title: title,
-      userId: user2,
+      userId: user,
       comments: [],
     };
     dispatch({ type: CREATE_REQ });
-    setTimeout(() => {
+    setTimeout(async () => {
       POSTS_DATA.push(item);
       dispatch({ type: CREATE_REQ_SUCCESS, payload: data });
-      dispatch(getPosts());
-      dispatch({ type: CREATE_REQ_RESET });
-      dispatch({ type: APP_SUCCESS });
+      dispatch(getPosts()).then(() => {
+        dispatch({ type: CREATE_REQ_RESET });
+        dispatch({ type: APP_SUCCESS });
+      });
     }, 1000);
   };
 };

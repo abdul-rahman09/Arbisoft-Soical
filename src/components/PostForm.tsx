@@ -9,31 +9,29 @@ import {
 } from "style";
 
 import { StyledButton } from "style";
-import { PostFormValues, PostXT } from "./models";
+import { PostFormValues, ICreatePostInterface } from "./models";
 
-const InnerForm = (props: PostXT & FormikProps<PostFormValues>) => {
-  const { touched, errors, postData } = props;
-  const handleSubmit = (e: any) => {
+const InnerForm = (
+  props: ICreatePostInterface & FormikProps<PostFormValues>
+) => {
+  const { touched, errors, postData, handleSubmit, login } = props;
+  const handleSubmit2 = (e: any) => {
     e.preventDefault();
     const obj = {
       title: props.values.title,
       location: props.values.location,
       text: props.values.text,
     };
-    postData(obj.text, obj.location, obj.text);
+    postData(obj.text, obj.location, obj.title, login.user);
+    handleSubmit();
   };
 
   useEffect(() => {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    // if (props.app.success == true) {
-    //   props.history.push("/posts");
-    // }
-  }, [props.app]);
   return (
-    <CustomForm onSubmit={(e: any) => handleSubmit(e)}>
+    <CustomForm onSubmit={(e: any) => handleSubmit2(e)}>
       <div>
         <CustomField name="title" />
         {touched.title && errors.title && <Error>{errors.title}</Error>}

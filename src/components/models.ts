@@ -2,12 +2,13 @@ export enum EDIT_STATUS {
   No = 0,
   Yes = 1,
 }
+export interface IApptypeInterface {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+}
 export interface IAppInterface {
-  app: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
+  app: IApptypeInterface;
 }
 export interface IUserInterface {
   id: number;
@@ -42,11 +43,13 @@ export interface MyFormProps extends IAppInterface {
   history: any;
   authenticate: (username: string, password: string) => void;
 }
-export interface PostXT extends PostFormValues {
-  app: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  postData: (text: string, loc: string, title: string) => void;
+export interface ICreatePostInterface extends PostFormValues {
+  app: IApptypeInterface;
+  login;
+  postData: (
+    text: string,
+    loc: string,
+    title: string,
+    userId: IUserInterface
+  ) => void;
 }
