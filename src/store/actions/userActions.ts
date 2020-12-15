@@ -40,11 +40,13 @@ export const UserAuthenticate = (
 
     setTimeout(() => {
       if (password == 123 && username == user1.username) {
-        dispatch({ type: APP_SUCCESS, payload: { user: user1 } });
+        dispatch({ type: APP_SUCCESS });
+        dispatch({ type: LOGIN_SUCCESS, payload: { user: user1 } });
         return;
       }
       if (password == 123 || username == user2.username) {
-        dispatch({ type: APP_SUCCESS, payload: { user: user2 } });
+        dispatch({ type: APP_SUCCESS });
+        dispatch({ type: LOGIN_SUCCESS, payload: { user: user2 } });
         return;
       }
       dispatch({ type: APP_FAIL });
