@@ -7,17 +7,7 @@ import {
   APP_RESET,
   LOGIN_SUCCESS,
 } from "store/types";
-import { IUserInterface } from "components/models";
-export const user1: IUserInterface = {
-  id: 1,
-  name: "Abdul Rahman",
-  username: "abdul",
-};
-export const user2: IUserInterface = {
-  id: 2,
-  name: "Huzaifah",
-  username: "huz",
-};
+import { user1, user2 } from "store/actions/dummyData";
 
 export const UserUpdate = (
   user

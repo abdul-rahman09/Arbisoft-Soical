@@ -1,25 +1,9 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { ICommentInterface } from "components/models";
-import { POSTS_DATA, getPosts } from "store/actions/postActions";
+import { getPosts } from "store/actions/postActions";
+import { POSTS_DATA } from "store/actions/dummyData";
 
-export const comment1: ICommentInterface = {
-  id: 1,
-  text: "My First Comment",
-};
-
-export const comment2: ICommentInterface = {
-  id: 2,
-  text: "My Second Comment",
-};
-export const comment3: ICommentInterface = {
-  id: 3,
-  text: "My Third Comment",
-};
-export const comment4: ICommentInterface = {
-  id: 4,
-  text: "My Fourth Comment",
-};
 export const AddComment = (
   postId,
   text
