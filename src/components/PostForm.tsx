@@ -7,7 +7,7 @@ import {
   CustomTitle,
   DisabledButton,
 } from "style/common";
-
+import Field from "./FieldComponent";
 import { StyledButton } from "style/common";
 import { PostFormValues, ICreatePostInterface } from "./models";
 
@@ -32,20 +32,9 @@ const InnerForm = (
 
   return (
     <CustomForm onSubmit={(e: any) => handleSubmitForm(e)}>
-      <div>
-        <CustomField name="title" />
-        {touched.title && errors.title && <Error>{errors.title}</Error>}
-      </div>
-      <div>
-        <CustomField name="location" />
-        {touched.location && errors.location && (
-          <Error>{errors.location}</Error>
-        )}
-      </div>
-      <div>
-        <CustomField name="text" />
-        {touched.text && errors.text && <Error>{errors.text}</Error>}
-      </div>
+      <Field touched={touched} errors={errors} name="title" />
+      <Field touched={touched} errors={errors} name="location" />
+      <Field touched={touched} errors={errors} name="text" />
       <div>
         {!props.app.loading ? (
           props.values.title && props.values.text && props.values.location ? (

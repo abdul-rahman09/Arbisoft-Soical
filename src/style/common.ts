@@ -71,6 +71,6 @@ export const CustomForm = styled.form`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 250px;
+  height: 350px;
   justify-content: space-evenly;
 `;

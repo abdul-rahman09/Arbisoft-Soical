@@ -1,18 +1,13 @@
 import React, { useEffect } from "react";
 import { FormikProps } from "formik";
-import {
-  CustomForm,
-  CustomField,
-  Error,
-  CustomTitle,
-  DisabledButton,
-} from "style/common";
+import Field from "./FieldComponent";
+import { CustomForm, Error, CustomTitle, DisabledButton } from "style/common";
 
 import { StyledButton } from "style/common";
 import { FormValues, MyFormProps } from "./models";
 
 const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
-  const { touched, errors, isSubmitting, authenticate } = props;
+  const { touched, errors, authenticate } = props;
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const obj = {
@@ -31,17 +26,8 @@ const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
     <CustomForm onSubmit={(e: any) => handleSubmit(e)}>
       <CustomTitle>Login</CustomTitle>
       {props.app.error && <Error>Invalid Username or Password</Error>}
-
-      <div>
-        <CustomField name="email" />
-        {touched.email && errors.email && <Error>{errors.email}</Error>}
-      </div>
-      <div>
-        <CustomField type="password" name="password" />
-        {touched.password && errors.password && (
-          <Error>{errors.password}</Error>
-        )}
-      </div>
+      <Field name="email" touched={touched} errors={errors} />
+      <Field name="password" touched={touched} errors={errors} />
       <div>
         {!props.app.loading ? (
           props.values.email && props.values.password ? (
