@@ -1,44 +1,34 @@
-import React, { useState, useEffect, FC } from "react";
-import {
-  EDIT_STATUS,
-  IAppInterface,
-  IPostInterface,
-  IApptypeInterface,
-} from "components/models";
-import {
-  FieldWrapper,
-  Title,
-  InputWrapper,
-  InputComment,
-  CommentsWrapper,
-  CrossButtonWrapper,
-  CommentsDiv,
-  PostWrapper,
-  StyledButton,
-} from "style";
+import React, { useState, FC } from "react";
+import { IPostInterface, IApptypeInterface } from "components/models";
+import { FieldWrapper, StyledButton } from "style/common";
+import { CommentsWrapper, CommentsDiv, InputComment } from "style/comments";
+import { PostWrapper, CrossButtonWrapper, PostTitle } from "style/post";
+import {} from "style/login";
 import PostFormFormik from "components/PostFormFormik";
 
 type TdataType = { showForm: boolean; text: string; isEdit: boolean };
 
 interface IPostCardInterface {
   item: IPostInterface;
+  data: TdataType;
+  login: any;
+  edit: boolean;
+  app: IApptypeInterface;
   closePressed: (evt: React.MouseEvent) => void;
   editItem: (obj: IPostInterface) => void;
   saveEditItem: (obj: IPostInterface) => void;
   addComment: (obj: Number, text: string) => void;
-  data: TdataType;
-  login: any;
-  app: IApptypeInterface;
 }
 
 const Card: FC<IPostCardInterface> = ({
   item,
+  login,
+  app,
+  edit,
   saveEditItem,
   editItem,
   closePressed,
   addComment,
-  login,
-  app,
 }) => {
   const [comment, setComment] = useState("");
 
@@ -50,7 +40,7 @@ const Card: FC<IPostCardInterface> = ({
   };
   return (
     <div key={item.id}>
-      {item.showEdit ? (
+      {edit ? (
         <>
           <PostFormFormik
             text={item.text}
@@ -70,10 +60,10 @@ const Card: FC<IPostCardInterface> = ({
         </>
       ) : (
         <PostWrapper>
-          <Title>
+          <PostTitle>
             {item.userId.name} from {item.location}
-          </Title>
-          <Title>{item.title}</Title>
+          </PostTitle>
+          <PostTitle>{item.title}</PostTitle>
           {item.userId.id == login.user.id && (
             <StyledButton
               onClick={() => {

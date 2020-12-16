@@ -14,6 +14,7 @@ export const UserUpdate = (
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
       dispatch({ type: APP_SUCCESS, payload: { user: user } });
       dispatch({ type: LOGIN_SUCCESS, payload: { user: user } });
     } else {
@@ -31,11 +32,13 @@ export const UserAuthenticate = (
     setTimeout(() => {
       if (password == 123 && username == user1.username) {
         dispatch({ type: APP_SUCCESS });
+        localStorage.setItem("user", JSON.stringify(user1));
         dispatch({ type: LOGIN_SUCCESS, payload: { user: user1 } });
         return;
       }
       if (password == 123 || username == user2.username) {
         dispatch({ type: APP_SUCCESS });
+        localStorage.setItem("user", JSON.stringify(user2));
         dispatch({ type: LOGIN_SUCCESS, payload: { user: user2 } });
         return;
       }

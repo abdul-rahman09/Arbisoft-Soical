@@ -10,3 +10,5 @@ export const APP_LOADING = "APP_LOADING";
 export const APP_SUCCESS = "APP_SUCCESS";
 export const APP_FAIL = "APP_FAIL";
 export const APP_RESET = "APP_RESET";
+export const EDIT_RESET = "EDIT_RESET";
+export const EDIT_POST = "EDIT_POST";

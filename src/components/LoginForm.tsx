@@ -6,9 +6,9 @@ import {
   Error,
   CustomTitle,
   DisabledButton,
-} from "style";
+} from "style/common";
 
-import { StyledButton } from "style";
+import { StyledButton } from "style/common";
 import { FormValues, MyFormProps } from "./models";
 
 const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
@@ -21,10 +21,6 @@ const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
     };
     authenticate(props.values.email, props.values.password);
   };
-
-  useEffect(() => {
-    return () => {};
-  }, []);
 
   useEffect(() => {
     if (props.app.success == true) {

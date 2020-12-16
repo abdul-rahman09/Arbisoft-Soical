@@ -1,7 +1,3 @@
-export enum EDIT_STATUS {
-  No = 0,
-  Yes = 1,
-}
 export interface IApptypeInterface {
   loading: boolean;
   success: boolean;
@@ -33,7 +29,6 @@ export interface IPostInterface extends PostFormValues {
   id: number;
   userId: IUserInterface;
   comments: ICommentInterface[];
-  showEdit: EDIT_STATUS;
 }
 
 export interface MyFormProps extends IAppInterface {

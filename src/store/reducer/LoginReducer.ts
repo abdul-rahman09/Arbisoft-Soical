@@ -8,7 +8,6 @@ const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       newState.user = action.payload.user;
-      localStorage.setItem("user", JSON.stringify(newState.user));
       break;
   }
   return newState;

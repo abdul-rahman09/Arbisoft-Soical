@@ -2,7 +2,6 @@ import {
   ICommentInterface,
   IPostInterface,
   IUserInterface,
-  EDIT_STATUS,
 } from "components/models";
 export const user1: IUserInterface = {
   id: 1,
@@ -45,7 +44,6 @@ let item1: IPostInterface = {
       Live video (LinkedIn, Facebook, Instagram)
       Tik Tok
       In-feed videos (Facebook, Instagram, LinkedIn, Twitter, Pinterest)`,
-  showEdit: EDIT_STATUS.No,
   location: "Lahore",
 };
 let item3: IPostInterface = {
@@ -62,6 +60,5 @@ let item3: IPostInterface = {
   location: "Lahore",
   userId: user2,
   comments: [],
-  showEdit: EDIT_STATUS.No,
 };
 export const POSTS_DATA: Array<IPostInterface> = [item1, item3];

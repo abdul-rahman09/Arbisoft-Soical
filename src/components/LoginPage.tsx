@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginWrapper } from "style";
+import { LoginWrapper } from "style/login";
 import MyForm from "components/WithFormik";
 
 const LoginPage = (props: any) => {

@@ -1,15 +1,21 @@
-import { GET_REQ, GET_REQ_SUCCESS, GET_REQ_ERR } from "store/types";
-import { POSTS_DATA } from "store/actions/dummyData";
+import { EDIT_POST, EDIT_RESET, GET_REQ_SUCCESS } from "store/types";
 import { IPostInterface } from "components/models";
 const initialState = {
   data: Array<IPostInterface>(),
+  current_edit: -1,
 };
 
 const reducer = (state = initialState, action: any) => {
   const newState = { ...state };
   switch (action.type) {
     case GET_REQ_SUCCESS:
-      newState.data = [...POSTS_DATA].sort((a, b) => b.id - a.id);
+      newState.data = action.payload;
+      break;
+    case EDIT_POST:
+      newState.current_edit = action.payload;
+      break;
+    case EDIT_RESET:
+      newState.current_edit = -1;
       break;
   }
   return newState;

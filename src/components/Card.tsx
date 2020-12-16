@@ -2,17 +2,13 @@ import React, { useState, useEffect, FC } from "react";
 import { IPostInterface, IUserInterface } from "components/models";
 import PostComponent from "containers/PostCardContainer";
 import PostFormFormik from "components/PostFormFormik";
-import {
-  FieldWrapper,
-  CardWrapper,
-  InputWrapper,
-  CrossButtonWrapper,
-  StyledButton,
-} from "style";
-
+import { FieldWrapper, StyledButton } from "style/common";
+import { InputWrapper } from "style/comments";
+import { PostCardWrapper } from "style/post";
+import { LoginWrapper } from "style/login";
 interface ICardInterface {
   title: string;
-  posts: Array<IPostInterface>;
+  posts: { data: Array<IPostInterface>; current_edit: Number };
   app: any;
   login: any;
   getData: () => void;
@@ -37,20 +33,14 @@ const Card: FC<ICardInterface> = ({
     text: "",
     title: "",
     location: "",
-    isEdit: false,
   });
 
   useEffect(() => {
     getData();
   }, [getData]);
 
-  function addItem() {
-    postData(data.text, data.location, data.title, login.user);
-    setData({ ...data });
-  }
-
   return (
-    <CardWrapper>
+    <PostCardWrapper>
       <h6>{title}</h6>
       <div>
         <PostFormFormik
@@ -61,16 +51,17 @@ const Card: FC<ICardInterface> = ({
           app={app}
           login={login}
         />
-        {posts.map((item: IPostInterface) => (
+        {posts.data.map((item: IPostInterface) => (
           <PostComponent
             setData={setData}
             data={data}
             key={item.id}
             item={item}
+            edit={item.id == posts.current_edit ? true : false}
           />
         ))}
       </div>
-    </CardWrapper>
+    </PostCardWrapper>
   );
 };
 export default Card;

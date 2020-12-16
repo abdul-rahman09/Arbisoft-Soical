@@ -5,7 +5,7 @@ import Card from "components/Card";
 const stateToProps = (state: RootState) => {
   return {
     title: "Posts",
-    posts: state.posts.data,
+    posts: state.posts,
     app: state.app,
     login: state.login,
   };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import AddCardContainer from "containers/AllPostsCardContainer";
-import { BoardWrapper, StyledButtonRight } from "style";
+import PostCardContainer from "containers/AllPostsCardContainer";
+import { StyledButtonRight } from "style/common";
+import { PostBoardWrapper } from "style/post";
 function Board(props: any) {
   const logout = () => {
     localStorage.clear();
@@ -8,15 +9,15 @@ function Board(props: any) {
     win.location.reload();
   };
   return (
-    <BoardWrapper>
+    <PostBoardWrapper>
       <StyledButtonRight onClick={() => logout()}>Logout</StyledButtonRight>
       <h1>FakeBook</h1>
       <div className="row">
         <div className="offset-4 col-lg-4 col-sm-4">
-          <AddCardContainer />
+          <PostCardContainer />
         </div>
       </div>
-    </BoardWrapper>
+    </PostBoardWrapper>
   );
 }
 export default Board;

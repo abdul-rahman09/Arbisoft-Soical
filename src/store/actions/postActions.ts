@@ -8,15 +8,20 @@ import {
   CREATE_REQ_SUCCESS,
   APP_LOADING,
   APP_SUCCESS,
+  EDIT_POST,
+  EDIT_RESET,
 } from "store/types";
-import { IPostInterface, EDIT_STATUS, IUserInterface } from "components/models";
+import { IPostInterface, IUserInterface } from "components/models";
 import { POSTS_DATA } from "store/actions/dummyData";
 
 export const getPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     dispatch({ type: GET_REQ });
-    setTimeout(() => {
-      dispatch({ type: GET_REQ_SUCCESS });
+    await setTimeout(async () => {
+      await dispatch({
+        type: GET_REQ_SUCCESS,
+        payload: [...POSTS_DATA].sort((a, b) => b.id - a.id),
+      });
     }, 2000);
   };
 };
@@ -32,7 +37,6 @@ export const CreatePost = (
     const item = {
       id: POSTS_DATA.length + 1,
       text: data,
-      showEdit: EDIT_STATUS.No,
       location: location,
       title: title,
       userId: user,
@@ -53,14 +57,7 @@ export const showEditItem = (
   data: IPostInterface
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    for (let i = 0; i < POSTS_DATA.length; i++) {
-      if (POSTS_DATA[i].id == data.id) {
-        POSTS_DATA[i].showEdit = EDIT_STATUS.Yes;
-      } else {
-        POSTS_DATA[i].showEdit = EDIT_STATUS.No;
-      }
-    }
-    dispatch(getPosts());
+    dispatch({ type: EDIT_POST, payload: data.id });
   };
 };
 
@@ -69,14 +66,12 @@ export const saveEditItem = (
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     for (let i = 0; i < POSTS_DATA.length; i++) {
-      if (POSTS_DATA[i].showEdit == EDIT_STATUS.Yes) {
-        POSTS_DATA[i]["text"] = data.text;
-        POSTS_DATA[i]["location"] = data.location;
-        POSTS_DATA[i]["title"] = data.title;
-        POSTS_DATA[i].showEdit = EDIT_STATUS.No;
+      if (POSTS_DATA[i].id == data.id) {
+        POSTS_DATA[i] = { ...POSTS_DATA[i], ...data };
       }
     }
-    dispatch(getPosts());
+    await dispatch(getPosts());
+    dispatch({ type: EDIT_RESET });
   };
 };
 export const closePressed = (): ThunkAction<
@@ -86,9 +81,6 @@ export const closePressed = (): ThunkAction<
   AnyAction
 > => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    for (let i = 0; i < POSTS_DATA.length; i++) {
-      POSTS_DATA[i].showEdit = EDIT_STATUS.No;
-    }
-    dispatch(getPosts());
+    dispatch({ type: EDIT_RESET });
   };
 };
