@@ -1,10 +1,11 @@
 import React from "react";
 import { CustomField, Error } from "style/common";
+import { capitalizeFirstLetter } from "utils/commonFunctions";
 
 interface IFieldInterface {
   name: string;
-  errors: any;
-  touched: any;
+  errors: string;
+  touched: boolean;
 }
 
 const FieldComponent: React.FC<IFieldInterface> = ({
@@ -12,16 +13,13 @@ const FieldComponent: React.FC<IFieldInterface> = ({
   touched,
   errors,
 }) => {
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
   return (
     <div>
       <CustomField
         placeholder={`Please Enter ${capitalizeFirstLetter(name)}`}
         name={name}
       />
-      {touched[name] && errors[name] && <Error>{errors[name]}</Error>}
+      {touched && errors && <Error>{errors}</Error>}
     </div>
   );
 };

@@ -4,17 +4,17 @@ import { IPostInterface } from "components/models";
 
 interface IEditInterface {
   login: any;
-  item: any;
-  editItem: (obj: IPostInterface) => void;
+  post: any;
+  editPost: (obj: IPostInterface) => void;
 }
 
-const EditCopmonent: React.FC<IEditInterface> = ({ item, login, editItem }) => {
+const EditCopmonent: React.FC<IEditInterface> = ({ post, login, editPost }) => {
   return (
     <>
-      {item.userId.id == login.user.id && (
+      {post.userId.id == login.user.id && (
         <StyledButton
           onClick={() => {
-            editItem(item);
+            editPost(post);
           }}
         >
           Edit

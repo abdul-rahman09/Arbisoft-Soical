@@ -38,8 +38,9 @@ export interface MyFormProps extends IAppInterface {
   history: any;
   authenticate: (username: string, password: string) => void;
 }
-export interface ICreatePostInterface extends PostFormValues {
+export interface ICreatePostInterface {
   app: IApptypeInterface;
+  formValues: PostFormValues;
   login;
   postData: (
     text: string,

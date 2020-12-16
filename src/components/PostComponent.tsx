@@ -8,36 +8,39 @@ import PostFormFormik from "containers/PostFormikContainer";
 import EditComponent from "containers/EditContainer";
 
 interface IPostCardInterface {
-  item: IPostInterface;
+  post: IPostInterface;
   edit: boolean;
-  saveEditItem: (obj: IPostInterface) => void;
+  saveEditedPost: (obj: IPostInterface) => void;
   addComment: (obj: Number, text: string) => void;
 }
 
 const Card: FC<IPostCardInterface> = ({
-  item,
+  post,
   edit,
-  saveEditItem,
+  saveEditedPost,
   addComment,
 }) => {
   const [comment, setComment] = useState("");
 
   const publishComment = () => {
     if (comment) {
-      addComment(item.id, comment);
+      addComment(post.id, comment);
       setComment("");
     }
   };
   return (
-    <div key={item.id}>
+    <div key={post.id}>
       {edit ? (
         <>
           <PostFormFormik
-            text={item.text}
-            title={item.title}
-            location={item.location}
+            data={post}
             postData={(text: string, loc: string, title: string) =>
-              saveEditItem({ ...item, text: text, location: loc, title: title })
+              saveEditedPost({
+                ...post,
+                text: text,
+                location: loc,
+                title: title,
+              })
             }
           />
           <CloseComponent />
@@ -45,11 +48,11 @@ const Card: FC<IPostCardInterface> = ({
       ) : (
         <PostWrapper>
           <PostTitle>
-            {item.userId.name} from {item.location}
+            {post.userId.name} from {post.location}
           </PostTitle>
-          <PostTitle>{item.title}</PostTitle>
-          <EditComponent item={item} />
-          <FieldWrapper>{item.text}</FieldWrapper>
+          <PostTitle>{post.title}</PostTitle>
+          <EditComponent post={post} />
+          <FieldWrapper>{post.text}</FieldWrapper>
           <InputComment
             onChange={(evt: any) => setComment(evt.target.value)}
             value={comment}
@@ -57,9 +60,9 @@ const Card: FC<IPostCardInterface> = ({
           />
           <StyledButton onClick={publishComment}>Send</StyledButton>
           <CommentsWrapper>
-            {item.comments.map((obj) => {
-              return <CommentsDiv key={obj.id}>{obj.text}</CommentsDiv>;
-            })}
+            {post.comments.map((obj) => (
+              <CommentsDiv key={obj.id}>{obj.text}</CommentsDiv>
+            ))}
           </CommentsWrapper>
         </PostWrapper>
       )}

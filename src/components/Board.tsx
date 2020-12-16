@@ -2,12 +2,7 @@ import React from "react";
 import PostCardContainer from "containers/AllPostsCardContainer";
 import { StyledButtonRight } from "style/common";
 import { PostBoardWrapper } from "style/post";
-function Board() {
-  const logout = () => {
-    localStorage.clear();
-    const win: any = window;
-    win.location.reload();
-  };
+function Board({ logout }) {
   return (
     <PostBoardWrapper>
       <StyledButtonRight onClick={() => logout()}>Logout</StyledButtonRight>

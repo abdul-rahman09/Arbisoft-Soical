@@ -6,14 +6,14 @@ import PostComponent from "components/PostComponent";
 
 const stateToProps = (state: RootState, props: any) => {
   return {
-    item: { ...props.item },
+    post: { ...props.item },
     setData: props.setData,
     login: state.login,
   };
 };
 const mapDispatchToProps = {
   addComment: AddComment,
-  editItem: showEditItem,
-  saveEditItem: saveEditItem,
+  editPost: showEditItem,
+  saveEditedPost: saveEditItem,
 };
 export default connect(stateToProps, mapDispatchToProps)(PostComponent);

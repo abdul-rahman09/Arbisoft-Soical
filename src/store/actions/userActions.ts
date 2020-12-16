@@ -49,3 +49,11 @@ export const UserAuthenticate = (
     }, 2000);
   };
 };
+
+export const logout = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    localStorage.clear();
+    const win: any = window;
+    win.location.reload();
+  };
+};

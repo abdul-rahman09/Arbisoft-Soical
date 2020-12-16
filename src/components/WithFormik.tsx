@@ -1,7 +1,17 @@
 import { withFormik, FormikErrors } from "formik";
 import { MyFormProps, FormValues } from "./models";
 import InnerForm from "components/LoginForm";
-
+import * as Yup from "yup";
+const SignupSchema = Yup.object().shape({
+  email: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  password: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+});
 const MyForm = withFormik<MyFormProps, FormValues>({
   mapPropsToValues: (props) => {
     return {

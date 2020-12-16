@@ -5,11 +5,11 @@ import EditComponent from "components/EditComponent";
 
 const stateToProps = (state: RootState, props: any) => {
   return {
-    item: { ...props.item },
+    post: { ...props.post },
     login: state.login,
   };
 };
 const mapDispatchToProps = {
-  editItem: showEditItem,
+  editPost: showEditItem,
 };
 export default connect(stateToProps, mapDispatchToProps)(EditComponent);

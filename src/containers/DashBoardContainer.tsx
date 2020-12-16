@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { UserUpdate } from "store/actions/userActions";
+import { UserUpdate, logout } from "store/actions/userActions";
 import { RootState } from "store/reducer/index";
 import HOC from "components/SecuredRoute";
 import Board from "components/Board";
@@ -11,5 +11,6 @@ const stateToProps = (state: RootState) => {
 };
 const mapDispatchToProps = {
   UserUpdate,
+  logout,
 };
 export default connect(stateToProps, mapDispatchToProps)(HOC(Board));

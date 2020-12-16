@@ -40,9 +40,7 @@ const Card: FC<ICardInterface> = ({
       <h6>{title}</h6>
       <div>
         <PostFormFormik
-          text={data.text}
-          title={data.title}
-          location={data.location}
+          formValues={data}
           postData={postData}
           app={app}
           login={login}

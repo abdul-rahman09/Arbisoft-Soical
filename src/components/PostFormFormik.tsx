@@ -4,10 +4,11 @@ import InnerForm from "components/PostForm";
 
 const MyForm = withFormik<ICreatePostInterface, PostFormValues>({
   mapPropsToValues: (props) => {
+    const { location, title, text } = props.formValues;
     return {
-      location: props.location,
-      title: props.title,
-      text: props.text,
+      location,
+      title,
+      text,
       login: props.login,
     };
   },

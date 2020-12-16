@@ -11,12 +11,8 @@ const InnerForm = (
   const { touched, errors, postData, handleSubmit, login } = props;
   const handleSubmitForm = (e: any) => {
     e.preventDefault();
-    const obj = {
-      title: props.values.title,
-      location: props.values.location,
-      text: props.values.text,
-    };
-    postData(obj.text, obj.location, obj.title, login.user);
+    const { title, location, text } = props.values;
+    postData(text, location, title, login.user);
     handleSubmit();
   };
 
@@ -24,14 +20,29 @@ const InnerForm = (
     return () => {};
   }, []);
 
+  const { loading } = props.app;
+  const { text, title, location } = props.values;
+
   return (
     <CustomForm onSubmit={(e: any) => handleSubmitForm(e)}>
-      <Field touched={touched} errors={errors} name="title" />
-      <Field touched={touched} errors={errors} name="location" />
-      <Field touched={touched} errors={errors} name="text" />
+      <Field
+        touched={touched.title || false}
+        errors={errors.title || ""}
+        name="title"
+      />
+      <Field
+        touched={touched.location || false}
+        errors={errors.location || ""}
+        name="location"
+      />
+      <Field
+        touched={touched.text || false}
+        errors={errors.text || ""}
+        name="text"
+      />
       <div>
-        {!props.app.loading ? (
-          props.values.title && props.values.text && props.values.location ? (
+        {!loading ? (
+          title && text && location ? (
             <StyledButton type="submit">Share</StyledButton>
           ) : (
             <DisabledButton disabled={true}>Share</DisabledButton>

@@ -9,11 +9,8 @@ const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
   const { touched, errors, authenticate } = props;
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const obj = {
-      username: props.values.email,
-      password: props.values.password,
-    };
-    authenticate(props.values.email, props.values.password);
+    const { email, password } = props.values;
+    authenticate(email, password);
   };
 
   useEffect(() => {
@@ -25,8 +22,16 @@ const InnerForm = (props: MyFormProps & FormikProps<FormValues>) => {
     <CustomForm onSubmit={(e: any) => handleSubmit(e)}>
       <CustomTitle>Login</CustomTitle>
       {props.app.error && <Error>Invalid Username or Password</Error>}
-      <Field name="email" touched={touched} errors={errors} />
-      <Field name="password" touched={touched} errors={errors} />
+      <Field
+        name="email"
+        touched={touched.email || false}
+        errors={errors.email || ""}
+      />
+      <Field
+        name="password"
+        touched={touched.password || false}
+        errors={errors.password || ""}
+      />
       <div>
         {!props.app.loading ? (
           props.values.email && props.values.password ? (
