@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PostCardContainer from "containers/AllPostsCardContainer";
 import { StyledButtonRight } from "style/common";
 import { PostBoardWrapper } from "style/post";
-function Board(props: any) {
+function Board() {
   const logout = () => {
     localStorage.clear();
     const win: any = window;

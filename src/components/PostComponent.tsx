@@ -3,14 +3,10 @@ import { IPostInterface, IApptypeInterface } from "components/models";
 import { FieldWrapper, StyledButton } from "style/common";
 import { CommentsWrapper, CommentsDiv, InputComment } from "style/comments";
 import { PostWrapper, CrossButtonWrapper, PostTitle } from "style/post";
-import {} from "style/login";
 import PostFormFormik from "components/PostFormFormik";
-
-type TdataType = { showForm: boolean; text: string; isEdit: boolean };
 
 interface IPostCardInterface {
   item: IPostInterface;
-  data: TdataType;
   login: any;
   edit: boolean;
   app: IApptypeInterface;

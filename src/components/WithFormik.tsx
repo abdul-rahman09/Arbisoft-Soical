@@ -1,4 +1,3 @@
-import React from "react";
 import { withFormik, FormikErrors } from "formik";
 import { MyFormProps, FormValues } from "./models";
 import InnerForm from "components/LoginForm";

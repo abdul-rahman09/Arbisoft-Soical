@@ -2,10 +2,7 @@ import React, { useState, useEffect, FC } from "react";
 import { IPostInterface, IUserInterface } from "components/models";
 import PostComponent from "containers/PostCardContainer";
 import PostFormFormik from "components/PostFormFormik";
-import { FieldWrapper, StyledButton } from "style/common";
-import { InputWrapper } from "style/comments";
 import { PostCardWrapper } from "style/post";
-import { LoginWrapper } from "style/login";
 interface ICardInterface {
   title: string;
   posts: { data: Array<IPostInterface>; current_edit: Number };
@@ -18,16 +15,15 @@ interface ICardInterface {
     title: string,
     user: IUserInterface
   ) => void;
-  closePressed: () => void;
 }
 
 const Card: FC<ICardInterface> = ({
   title,
   posts,
-  getData,
-  postData,
   app,
   login,
+  getData,
+  postData,
 }) => {
   const [data, setData] = useState({
     text: "",
@@ -37,7 +33,7 @@ const Card: FC<ICardInterface> = ({
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, []);
 
   return (
     <PostCardWrapper>

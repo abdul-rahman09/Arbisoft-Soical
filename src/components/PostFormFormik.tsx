@@ -1,6 +1,5 @@
-import React from "react";
 import { withFormik, FormikErrors } from "formik";
-import { ICreatePostInterface, PostFormValues, FormValues } from "./models";
+import { ICreatePostInterface, PostFormValues } from "./models";
 import InnerForm from "components/PostForm";
 
 const MyForm = withFormik<ICreatePostInterface, PostFormValues>({

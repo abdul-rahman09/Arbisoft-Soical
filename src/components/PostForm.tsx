@@ -1,12 +1,6 @@
 import React, { useEffect } from "react";
 import { FormikProps } from "formik";
-import {
-  CustomForm,
-  CustomField,
-  Error,
-  CustomTitle,
-  DisabledButton,
-} from "style/common";
+import { CustomForm, DisabledButton } from "style/common";
 import Field from "./FieldComponent";
 import { StyledButton } from "style/common";
 import { PostFormValues, ICreatePostInterface } from "./models";
