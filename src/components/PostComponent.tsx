@@ -2,28 +2,22 @@ import React, { useState, FC } from "react";
 import { IPostInterface, IApptypeInterface } from "components/models";
 import { FieldWrapper, StyledButton } from "style/common";
 import { CommentsWrapper, CommentsDiv, InputComment } from "style/comments";
-import { PostWrapper, CrossButtonWrapper, PostTitle } from "style/post";
-import PostFormFormik from "components/PostFormFormik";
+import { PostWrapper, PostTitle } from "style/post";
+import CloseComponent from "containers/CloseContainer";
+import PostFormFormik from "containers/PostFormikContainer";
+import EditComponent from "containers/EditContainer";
 
 interface IPostCardInterface {
   item: IPostInterface;
-  login: any;
   edit: boolean;
-  app: IApptypeInterface;
-  closePressed: (evt: React.MouseEvent) => void;
-  editItem: (obj: IPostInterface) => void;
   saveEditItem: (obj: IPostInterface) => void;
   addComment: (obj: Number, text: string) => void;
 }
 
 const Card: FC<IPostCardInterface> = ({
   item,
-  login,
-  app,
   edit,
   saveEditItem,
-  editItem,
-  closePressed,
   addComment,
 }) => {
   const [comment, setComment] = useState("");
@@ -45,14 +39,8 @@ const Card: FC<IPostCardInterface> = ({
             postData={(text: string, loc: string, title: string) =>
               saveEditItem({ ...item, text: text, location: loc, title: title })
             }
-            app={app}
-            login={login}
           />
-          <CrossButtonWrapper
-            onClick={(evt: React.MouseEvent) => closePressed(evt)}
-          >
-            X
-          </CrossButtonWrapper>
+          <CloseComponent />
         </>
       ) : (
         <PostWrapper>
@@ -60,15 +48,7 @@ const Card: FC<IPostCardInterface> = ({
             {item.userId.name} from {item.location}
           </PostTitle>
           <PostTitle>{item.title}</PostTitle>
-          {item.userId.id == login.user.id && (
-            <StyledButton
-              onClick={() => {
-                editItem(item);
-              }}
-            >
-              Edit
-            </StyledButton>
-          )}
+          <EditComponent item={item} />
           <FieldWrapper>{item.text}</FieldWrapper>
           <InputComment
             onChange={(evt: any) => setComment(evt.target.value)}

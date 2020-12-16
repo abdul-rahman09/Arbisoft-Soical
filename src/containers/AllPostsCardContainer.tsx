@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getPosts, CreatePost, closePressed } from "store/actions/postActions";
+import { getPosts, CreatePost } from "store/actions/postActions";
 import { RootState } from "store/reducer/index";
 import Card from "components/Card";
 const stateToProps = (state: RootState) => {
@@ -13,6 +13,5 @@ const stateToProps = (state: RootState) => {
 const mapDispatchToProps = {
   getData: getPosts,
   postData: CreatePost,
-  closePressed: closePressed,
 };
 export default connect(stateToProps, mapDispatchToProps)(Card);
