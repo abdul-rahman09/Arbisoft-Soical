@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Field from "./FieldComponent";
@@ -10,8 +10,19 @@ import {
   CustomTitle,
   Error,
 } from "style/common";
+import { IApptypeInterface } from "components/models";
 
-const SignupForm = (props: any) => {
+interface ILoginInterface {
+  app: IApptypeInterface;
+  history: any;
+  authenticate: (username: string, password: string) => void;
+}
+
+const LoginForm: React.FC<ILoginInterface> = ({
+  app,
+  authenticate,
+  history,
+}) => {
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -27,18 +38,18 @@ const SignupForm = (props: any) => {
         .required("Required"),
     }),
     onSubmit: async (values) => {
-      props.authenticate(values.username, values.password);
+      authenticate(values.username, values.password);
     },
   });
   useEffect(() => {
-    if (props.app.success == true) {
-      props.history.push("/posts");
+    if (app.success == true) {
+      history.push("/posts");
     }
-  }, [props.app]);
+  }, [app]);
   return (
     <LoginWrapper>
       <CustomTitle>Login</CustomTitle>
-      {props.app.error && <Error>Invalid Username or Password</Error>}
+      {app.error && <Error>Invalid Username or Password</Error>}
 
       <CustomForm onSubmit={formik.handleSubmit}>
         <Field
@@ -60,7 +71,7 @@ const SignupForm = (props: any) => {
           errors={formik.errors.password || ""}
         />
         <div>
-          {!props.app.loading ? (
+          {!app.loading ? (
             formik.values.username && formik.values.password ? (
               <StyledButton type="submit">Login</StyledButton>
             ) : (
@@ -74,4 +85,4 @@ const SignupForm = (props: any) => {
     </LoginWrapper>
   );
 };
-export default SignupForm;
+export default LoginForm;

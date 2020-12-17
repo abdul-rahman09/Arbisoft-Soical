@@ -4,20 +4,38 @@ import * as Yup from "yup";
 import Field from "./FieldComponent";
 import { LoginWrapper } from "style/login";
 import {
-  StyledButton,
-  DisabledButton,
-  CustomForm,
-  CustomTitle,
-  Error,
-} from "style/common";
+  PostFormValues,
+  IUserInterface,
+  IApptypeInterface,
+} from "components/models";
+import { StyledButton, DisabledButton, CustomForm, Error } from "style/common";
 
-const SignupForm = (props: any) => {
+interface IPostFormInterface {
+  formValues: PostFormValues;
+  app: IApptypeInterface;
+  login: {
+    user: IUserInterface;
+  };
+  postData: (
+    text: string,
+    loc: string,
+    title: string,
+    user: IUserInterface
+  ) => void;
+}
+
+const PostForm: React.FC<IPostFormInterface> = ({
+  app,
+  formValues,
+  login,
+  postData,
+}) => {
   const formik = useFormik({
     initialValues: {
-      location: props.formValues.location || "",
-      title: props.formValues.title || "",
-      text: props.formValues.text || "",
-      login: props.login,
+      location: formValues.location || "",
+      title: formValues.title || "",
+      text: formValues.text || "",
+      login: login,
     },
     validationSchema: Yup.object({
       location: Yup.string().required("Required"),
@@ -26,14 +44,14 @@ const SignupForm = (props: any) => {
     }),
     onSubmit: (values, { resetForm }) => {
       const { title, location, text } = values;
-      props.postData(text, location, title, props.login.user);
+      postData(text, location, title, login.user);
       resetForm();
     },
   });
   const { title, text, location } = formik.values;
   return (
     <>
-      {props.app.error && <Error>Invalid Username or Password</Error>}
+      {app.error && <Error>Invalid Username or Password</Error>}
 
       <CustomForm onSubmit={formik.handleSubmit}>
         <Field
@@ -64,7 +82,7 @@ const SignupForm = (props: any) => {
           errors={formik.errors.text}
         />
         <div>
-          {!props.app.loading ? (
+          {!app.loading ? (
             location && title && text ? (
               <StyledButton type="submit">Share</StyledButton>
             ) : (
@@ -78,4 +96,4 @@ const SignupForm = (props: any) => {
     </>
   );
 };
-export default SignupForm;
+export default PostForm;

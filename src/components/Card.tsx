@@ -1,5 +1,9 @@
 import React, { useState, useEffect, FC } from "react";
-import { IPostInterface, IUserInterface } from "components/models";
+import {
+  IPostInterface,
+  IUserInterface,
+  PostFormValues,
+} from "components/models";
 import PostComponent from "containers/PostCardContainer";
 import PostFormFormik from "components/PostFormFormik";
 import { PostCardWrapper } from "style/post";
@@ -25,7 +29,7 @@ const Card: FC<ICardInterface> = ({
   getData,
   postData,
 }) => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<PostFormValues>({
     text: "",
     title: "",
     location: "",
