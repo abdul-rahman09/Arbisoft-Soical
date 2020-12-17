@@ -1,36 +1,81 @@
-import { withFormik, FormikErrors } from "formik";
-import { ICreatePostInterface, PostFormValues } from "./models";
-import InnerForm from "components/PostForm";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Field from "./FieldComponent";
+import { LoginWrapper } from "style/login";
+import {
+  StyledButton,
+  DisabledButton,
+  CustomForm,
+  CustomTitle,
+  Error,
+} from "style/common";
 
-const MyForm = withFormik<ICreatePostInterface, PostFormValues>({
-  mapPropsToValues: (props) => {
-    const { location, title, text } = props.formValues;
-    return {
-      location,
-      title,
-      text,
+const SignupForm = (props: any) => {
+  const formik = useFormik({
+    initialValues: {
+      location: props.formValues.location || "",
+      title: props.formValues.title || "",
+      text: props.formValues.text || "",
       login: props.login,
-    };
-  },
+    },
+    validationSchema: Yup.object({
+      location: Yup.string().required("Required"),
+      title: Yup.string().required("Required"),
+      text: Yup.string().required("Required"),
+    }),
+    onSubmit: (values, { resetForm }) => {
+      const { title, location, text } = values;
+      props.postData(text, location, title, props.login.user);
+      resetForm();
+    },
+  });
+  const { title, text, location } = formik.values;
+  return (
+    <>
+      {props.app.error && <Error>Invalid Username or Password</Error>}
 
-  validate: (values: PostFormValues) => {
-    let errors: FormikErrors<PostFormValues> = {};
-    if (!values.location) {
-      errors.location = "Please Enter Location";
-    }
-    if (!values.title) {
-      errors.title = "Please Enter Title";
-    }
-    if (!values.text) {
-      errors.text = "Please Enter Text";
-    }
-    return errors;
-  },
-
-  handleSubmit: (values) => {
-    values.title = "";
-    values.location = "";
-    values.text = "";
-  },
-})(InnerForm);
-export default MyForm;
+      <CustomForm onSubmit={formik.handleSubmit}>
+        <Field
+          name="title"
+          value={title}
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          touched={formik.touched.title}
+          errors={formik.errors.title}
+        />
+        <Field
+          name="location"
+          value={location}
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          touched={formik.touched.location}
+          errors={formik.errors.location}
+        />
+        <Field
+          name="text"
+          value={text}
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          touched={formik.touched.text}
+          errors={formik.errors.text}
+        />
+        <div>
+          {!props.app.loading ? (
+            location && title && text ? (
+              <StyledButton type="submit">Share</StyledButton>
+            ) : (
+              <DisabledButton disabled={true}>Share</DisabledButton>
+            )
+          ) : (
+            <DisabledButton disabled={true}>Submitting</DisabledButton>
+          )}
+        </div>
+      </CustomForm>
+    </>
+  );
+};
+export default SignupForm;

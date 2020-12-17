@@ -59,7 +59,7 @@ export const Error = styled.p`
   margin-top: 5px;
   font-size: 12px;
 `;
-export const CustomField = styled(Field)`
+export const CustomField = styled.input`
   height: 35px;
   border: 1px solid #ccc;
   border-radius: 8px;

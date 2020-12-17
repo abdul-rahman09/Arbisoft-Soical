@@ -36,7 +36,7 @@ export interface MyFormProps extends IAppInterface {
     user: IUserInterface;
   };
   history: any;
-  authenticate: (username: string, password: string) => void;
+  authenticate: (username: string, password: string) => boolean;
 }
 export interface ICreatePostInterface {
   app: IApptypeInterface;

@@ -33,7 +33,7 @@ const Card: FC<IPostCardInterface> = ({
       {edit ? (
         <>
           <PostFormFormik
-            data={post}
+            formValues={post}
             postData={(text: string, loc: string, title: string) =>
               saveEditedPost({
                 ...post,
