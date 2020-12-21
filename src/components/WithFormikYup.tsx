@@ -11,6 +11,7 @@ import {
   Error,
 } from "style/common";
 import { IApptypeInterface } from "components/models";
+import { LoginValidationSchema } from "validation";
 
 interface ILoginInterface {
   app: IApptypeInterface;
@@ -28,15 +29,7 @@ const LoginForm: React.FC<ILoginInterface> = ({
       username: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      username: Yup.string()
-        .min(3, "Must be atleast 3 characters or more")
-        .max(15, "Must be 10 characters or less")
-        .required("Required"),
-      password: Yup.string()
-        .max(20, "Must be 10 characters or less")
-        .required("Required"),
-    }),
+    validationSchema: LoginValidationSchema,
     onSubmit: async (values) => {
       authenticate(values.username, values.password);
     },

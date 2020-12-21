@@ -9,6 +9,7 @@ import {
   IApptypeInterface,
 } from "components/models";
 import { StyledButton, DisabledButton, CustomForm, Error } from "style/common";
+import { PostValidationSchema } from "validation";
 
 interface IPostFormInterface {
   formValues: PostFormValues;
@@ -37,11 +38,7 @@ const PostForm: React.FC<IPostFormInterface> = ({
       text: formValues.text || "",
       login: login,
     },
-    validationSchema: Yup.object({
-      location: Yup.string().required("Required"),
-      title: Yup.string().required("Required"),
-      text: Yup.string().required("Required"),
-    }),
+    validationSchema: PostValidationSchema,
     onSubmit: (values, { resetForm }) => {
       const { title, location, text } = values;
       postData(text, location, title, login.user);

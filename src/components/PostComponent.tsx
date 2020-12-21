@@ -10,8 +10,8 @@ import EditComponent from "containers/EditContainer";
 interface IPostCardInterface {
   post: IPostInterface;
   edit: boolean;
-  saveEditedPost: (obj: IPostInterface) => void;
-  addComment: (obj: Number, text: string) => void;
+  saveEditedPost: (post: IPostInterface) => void;
+  addComment: (postId: Number, text: string) => void;
 }
 
 const Card: FC<IPostCardInterface> = ({
@@ -60,8 +60,8 @@ const Card: FC<IPostCardInterface> = ({
           />
           <StyledButton onClick={publishComment}>Send</StyledButton>
           <CommentsWrapper>
-            {post.comments.map((obj) => (
-              <CommentsDiv key={obj.id}>{obj.text}</CommentsDiv>
+            {post.comments.map((comments) => (
+              <CommentsDiv key={comments.id}>{comments.text}</CommentsDiv>
             ))}
           </CommentsWrapper>
         </PostWrapper>
